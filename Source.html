@@ -1,0 +1,548 @@
+<!-- You can see what your next rock, scissors and paper -->
+
+<html>
+
+	<head>
+
+		<meta charset="UTF-8">
+
+			<script>
+
+				function p(i){document.write(i)};
+
+				var tryCnt = 0;
+
+				var aRock = 0;
+				var aScissor = 0;
+				var aPaper = 0;
+
+
+//------------------------------------------------------------------------------------------------------------------------------------
+				function rsp()
+				// 사용자가 입력하는 가위,바위,보
+				{
+					tryCnt++;
+					document.myForm.tryCnt.value=tryCnt;
+					document.percentage.tryCnt.value=tryCnt;
+					document.accumulate.tryCnt.value=tryCnt;
+
+					var result = prompt("Rock,Scissor and Paper!", "");
+					for ( var i=0 ; result != 1 && result != 2 && result != 3 ; i++ )
+					{
+						alert("1(바위),2(가위),3(보)");
+						result=0;
+						var result = prompt("Rock,Scissor and Paper!", "");
+					}
+
+					if ( result == 1)
+					{
+						aRock++;
+						document.myForm.user.value="바위";
+						document.accumulate.rockCnt.value=aRock;
+					}
+					if ( result == 2)
+					{
+						aScissor++;
+						document.myForm.user.value="가위";
+						document.accumulate.scissorCnt.value=aScissor;
+					}
+					if ( result == 3)
+					{
+						aPaper++;
+						document.myForm.user.value="보";
+						document.accumulate.paperCnt.value=aPaper;
+					}
+
+					var alpha= Math.ceil( (Math.random()*3) );
+
+					remTry(result,alpha);
+					layers(result);
+					dector();
+					gyeongTae(alpha);
+				}
+
+//------------------------------------------------------------------------------------------------------------------------------------
+
+				var bRock;
+				var bScissor;
+				var bPaper;
+
+				function dector()
+				{
+					if ( tryCnt >0 && aRock >0 )
+					{
+						bRock = (aRock / tryCnt);
+						document.accumulate.rockPer.value = bRock;
+					}
+					if ( tryCnt >0 && aScissor >0 )
+					{
+						bScissor = (aScissor / tryCnt);
+						document.accumulate.scissorPer.value = bScissor;
+					}
+					if ( tryCnt >0 && aPaper>0 )
+					{
+						bPaper = (aPaper / tryCnt);
+						document.accumulate.paperPer.value = bPaper;
+					}
+				}
+
+//------------------------------------------------------------------------------------------------------------------------------------
+
+				var cRock = 0 ;
+				var cScissor = 0;
+				var cPaper = 0;
+
+				var dRock;
+				var dScissor;
+				var dPaper
+
+				function gyeongTae(x)
+				{
+					var pica = x;
+
+					if ( x==1 ){cRock++;}
+					if ( x==2 ){cScissor++;}
+					if ( x==3 ){cPaper++;}
+
+					if ( tryCnt >0 && cRock >0 )
+					{
+						dRock = (cRock / tryCnt);
+						document.accumulate.rock_per.value = dRock;
+					}
+					if ( tryCnt >0 && cScissor >0 )
+					{
+						dScissor = (cScissor / tryCnt);
+						document.accumulate.scissor_per.value = dScissor;
+					}
+					if ( tryCnt >0 && cPaper>0 )
+					{
+						dPaper = (cPaper / tryCnt);
+						document.accumulate.paper_per.value = dPaper;
+					}
+
+				}
+
+//------------------------------------------------------------------------------------------------------------------------------------
+				function remTry(x,y)
+				// win = x lose = y draw = z
+				// 승패 함수
+				{
+					var x;
+					var y;
+					var z;
+
+					if (x==1)
+					{
+						//rspAccu();
+						if ( y==1 )
+						{
+							rspPer("z");
+							document.myForm.alpha.value="바위";
+							document.myForm.result.value="DRAW";
+						}
+						else if ( y==2 )
+						{
+							rspPer("x");
+							document.myForm.alpha.value="가위";
+							document.myForm.result.value="WIN";
+						}
+						else if ( y==3 )
+						{
+							rspPer("y");
+							document.myForm.alpha.value="보";
+							document.myForm.result.value="LOSE";
+						}
+					}
+					if (x==2)
+					{
+						//rspAccu();
+						if ( y==1 )
+						{
+							rspPer("y");
+							document.myForm.alpha.value="바위"
+							document.myForm.result.value="LOSE";
+						}
+						else if ( y==2 )
+						{
+							rspPer("z");
+							document.myForm.alpha.value="가위"
+							document.myForm.result.value="DRAW";
+						}
+						else if ( y==3 )
+						{
+							rspPer("x");
+							document.myForm.alpha.value="보"
+							document.myForm.result.value="WIN";
+						}
+					}
+					if (x==3)
+					{
+						//rspAccu();
+						if ( y==1 )
+						{
+							rspPer("x");
+							document.myForm.alpha.value="바위"
+							document.myForm.result.value="WIN";
+						}
+						else if ( y==2 )
+						{
+							rspPer("y");
+							document.myForm.alpha.value="가위"
+							document.myForm.result.value="LOSE";
+						}
+						else if ( y==3 )
+						{
+							rspPer("z");
+							document.myForm.alpha.value="보"
+							document.myForm.result.value="DRAW";
+						}
+					}
+				}
+
+//------------------------------------------------------------------------------------------------------------------------------------
+				var arr = [0,0,0];
+
+				function rspPer(ans)
+				{
+					if (ans== "x")
+					{
+						arr[0] += 1;
+					}
+					if (ans== "y")
+					{
+						arr[1] += 1;
+					}
+					if (ans== "z")
+					{
+						arr[2] += 1;
+					}
+
+					var perX = ((arr[0]/tryCnt)*100);
+					document.percentage.user$.value = perX
+
+					var perY = ((arr[1]/tryCnt)*100);
+					document.percentage.alpha$.value = perY
+
+					//var perZ = ((arr[2]/tryCnt)*100);
+					//document.percentage.result$.value = perZ
+
+					if (perX < perY)
+					{
+						document.percentage.result$.value = "     < "
+					}
+					else if (perX > perY)
+					{
+						document.percentage.result$.value = "     > "
+					}
+					else if ( ans=="z")
+					{
+						document.percentage.result$.value = "     = "
+					}
+				}
+
+//------------------------------------------------------------------------------------------------------------------------------------
+
+
+				var dext = new Array();
+
+				function layers(add)
+				{
+					var add = Number(add);
+
+					if ( dext.length >= 2 )
+					{
+						dext.reverse().pop();
+						dext.push(add);
+						pers(dext[0],dext[1]);
+					}
+					else
+					{
+						dext.push(add);
+						pers(dext[0],dext[1]);
+					}
+				}
+
+//------------------------------------------------------------------------------------------------------------------------------------
+
+/*
+				var aRock = 0;
+
+				var aScissor = 0;
+
+				var aPaper = 0;
+*/
+/*
+				var eRock = bRock * dRock;
+				var eScissor = bScissor * d Scissor;
+				var ePaper = bPaper * dPaper;
+*/
+				var brdr=0; var brds=0; var brdp=0;
+				var bsdr=0; var bsds=0; var bsdp=0;
+				var bpdr=0; var bpds=0; var bpdp=0;
+
+
+				var brar=0; var bras=0; var brap=0;
+				var bsar=0; var bsas=0; var bsap=0;
+				var bpar=0; var bpas=0; var bpap=0;
+
+				// 2020.01.09 add commet
+				// add Laplace Smoothing in calculating conditional probability.				
+				
+				function pers(before,now)
+				// 조건부 확률 사건A(사용자)가 일어났을 때 사건 B(컴퓨터)가 함께 일어날 조건부 확률
+				// 이전에 냈던것을 지금 내면 그 확률이 얼마인지를 확인시켜줌
+				// before은 이전에 냈던것이고, now는 지금 내는것
+				// 출력하는 값은 지금 x를 냈을때 이전에 냈던 y것과 지금 x것이 동일한지, 다른 두개의 값인지 그 확률이 얼마였는지를 구해준다
+				{
+					var before = before;
+					var now = now;
+
+					if (before==1)
+					{
+						if (now==1)
+						{
+							brdr++;
+							document.per_rock.before_R_R.value = (brdr/(tryCnt-1))*100 + "%";
+							brar=(brdr/(tryCnt-1))
+						}
+						else if (now==2)
+						{
+							brds++;
+							document.per_rock.before_R_S.value = brds/(tryCnt-1)*100 + "%";
+							bras=brds/(tryCnt-1);
+						}
+						else if (now==3)
+						{
+							brdp++ ;
+							document.per_rock.before_R_P.value = (brdp/(tryCnt-1))*100 + "%";
+							brap=(brdp/(tryCnt-1));
+						}
+					}
+					if (before==2)
+					{
+						if (now==1)
+						{
+							bsdr++;
+							document.per_scissor.before_S_R.value = (bsdr/(tryCnt-1))*100 + "%";
+							bsar=(bsdr/(tryCnt-1))
+						}
+						else if (now==2)
+						{
+							bsds++;
+							document.per_scissor.before_S_S.value = (bsds/(tryCnt-1))*100 + "%";
+							bsas=(bsds/(tryCnt-1));
+						}
+						else if (now==3)
+						{
+							bsdp++;
+							document.per_scissor.before_S_P.value = (bsdp/(tryCnt-1))*100 + "%";
+							bsap=(bsdp/(tryCnt-1));
+						}
+					}
+					if (before==3)
+					{
+						if (now==1)
+						{
+							bpdr++;
+							document.per_paper.before_P_R.value = (bpdr/(tryCnt-1))*100 + "%";
+							bpar=(bpdr/(tryCnt-1));
+						}
+						else if (now==2)
+						{
+							bpds++;
+							document.per_paper.before_P_S.value = (bpds/(tryCnt-1))*100 + "%";
+							bpas=(bpds/(tryCnt-1));
+						}
+						else if (now==3)
+						{
+							bpdp++;
+							document.per_paper.before_P_P.value = (bpdp/(tryCnt-1))*100 + "%";
+							bpap=(bpdp/(tryCnt-1));
+						}
+					}
+					pars();
+				}
+
+//------------------------------------------------------------------------------------------------------------------------------------
+
+				var canMul = 1/3;
+				function pars()
+				{
+					document.per_rock.pattern_R_R.value = ((brar*bRock)/canMul)*100 + "%";
+					document.per_rock.pattern_R_S.value = ((bras*bRock)/canMul)*100 + "%";
+					document.per_rock.pattern_R_P.value = ((brap*bRock)/canMul)*100 + "%";
+
+					document.per_scissor.pattern_S_R.value = ((bsar*bScissor)/canMul)*100 + "%";
+					document.per_scissor.pattern_S_S.value = ((bsas*bScissor)/canMul)*100 + "%";
+					document.per_scissor.pattern_S_P.value = ((bsap*bScissor)/canMul)*100 + "%";
+
+					document.per_paper.pattern_P_R.value = ((bpar*bPaper)/canMul)*100 + "%";
+					document.per_paper.pattern_P_S.value = ((bpas*bPaper)/canMul)*100 + "%";
+					document.per_paper.pattern_P_P.value = ((bpap*bPaper)/canMul)*100 + "%";
+
+					nextGuess();
+				}
+
+//------------------------------------------------------------------------------------------------------------------------------------
+
+				function nextGuess()
+				{
+					var masR = ( brar + bsar + bpar ) * 100;
+					var masS = ( bras + bsas + bpas ) * 100;
+					var masP = ( brap + bsap + bpap ) * 100;
+
+					document.nextG.guess_R.value = Math.floor(masR) + "%";
+					document.nextG.guess_S.value = Math.floor(masS) + "%";
+					document.nextG.guess_P.value = Math.floor(masP) + "%";
+				}
+
+//------------------------------------------------------------------------------------------------------------------------------------
+// 추가 사항
+// 내가 무엇을 낼 것인지에 대해 컴퓨터에게 확율의 변화를 줄 수 있다
+// 랜덤인 상황에서 그 기준을 가지게하는 값에 내가 무엇을 낼 것인지에 대해 이길 수 있는 값을 주어준다면 컴퓨터가 좀 더 높은 확율로 이기지 않을까?
+
+			</script>
+
+	</head>
+
+	<body><center>
+
+		<input type="button" value="VS" onClick="rsp()">
+
+<!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
+			<form name="myForm" method="post" action="">
+
+				<table cellpadding=3 border=1 bordercolor="#00FF00">Rock Scissors and Paper
+
+					<tr><th>대국수<th>컴퓨터<th>결과<th>사용자
+					<tr>
+					<td><input type="text" name="tryCnt" size="3">
+					<td><input type="text" name="alpha"  size="3">
+					<td><input type="text" name="result" size="3">
+					<td><input type="text" name="user"   size="3">
+
+				</table>
+
+			</form>
+
+<!-- ----------------------------------------------------------------------------------------------------------------------------- -->
+			<form name="percentage" method="post" action="">
+
+				<table cellpadding=3 border=1 bordercolor="#33CCFF">PERCENTAGE
+
+					<tr><th>대국수<th>컴퓨터<th>부등호<th>사용자
+					<tr>
+					<td><input type="text" name="tryCnt"  size="3">
+					<td><input type="text" name="alpha$"  size="3">
+					<td><input type="text" name="result$" size="3">
+					<td><input type="text" name="user$"   size="3">
+
+				</table>
+
+			</form>
+
+
+<!-- ----------------------------------------------------------------------------------------------------------------------------- -->
+			<form name="accumulate" method="post" action="">
+
+				<table cellpadding=3 border=1 bordercolor="#FF3399">ACCUMULATION
+
+					<tr><th>대국수<th>Rock<th>Scissor<th>Paper
+					<tr>
+					<td><input type="text" name="tryCnt"     size="3">
+					<td><input type="text" name="rockCnt"    size="3">
+					<td><input type="text" name="scissorCnt" size="3">
+					<td><input type="text" name="paperCnt"   size="3">
+					<tr>
+					<th>사용자
+					<td><input type="text" name="rockPer"    size="3">
+					<td><input type="text" name="scissorPer" size="3">
+					<td><input type="text" name="paperPer"   size="3">
+					<tr>
+					<th>컴퓨터
+					<td><input type="text" name="rock_per"   size="3">
+					<td><input type="text" name="scissor_per"size="3">
+					<td><input type="text" name="paper_per"  size="3">
+
+				</table>
+
+			</form>
+
+<!-- ----------------------------------------------------------------------------------------------------------------------------- -->
+			<form name="per_rock" method="post" action="">
+
+				<table cellpadding=3 border=1 bordercolor="#C0C0C0">ROCK_Pattern
+
+					<tr><th>대국수<th>Rock<th>Scissor<th>Paper
+					<tr><th>before
+					<td><input type="text" name="before_R_R"size="3">
+					<td><input type="text" name="before_R_S"size="3">
+					<td><input type="text" name="before_R_P"size="3">
+					<tr><th>pattern
+					<td><input type="text" name="pattern_R_R" size="3">
+					<td><input type="text" name="pattern_R_S" size="3">
+					<td><input type="text" name="pattern_R_P" size="3">
+
+				</table>
+
+			</form>
+
+<!-- ----------------------------------------------------------------------------------------------------------------------------- -->
+			<form name="per_scissor" method="post" action="">
+
+				<table cellpadding=3 border=1 bordercolor="#C0C0C0">SCISSOR_Pattern
+
+					<tr><th>대국수<th>Rock<th>Scissor<th>Paper
+					<tr><th>before
+					<td><input type="text" name="before_S_R"size="3">
+					<td><input type="text" name="before_S_S"size="3">
+					<td><input type="text" name="before_S_P"size="3">
+					<tr><th>pattern
+					<td><input type="text" name="pattern_S_R" size="3">
+					<td><input type="text" name="pattern_S_S" size="3">
+					<td><input type="text" name="pattern_S_P" size="3">
+
+				</table>
+
+			</form>
+
+<!-- ----------------------------------------------------------------------------------------------------------------------------- -->
+			<form name="per_paper" method="post" action="">
+
+				<table cellpadding=3 border=1 bordercolor="#C0C0C0">PAPER_Pattern
+
+					<tr><th>대국수<th>Rock<th>Scissor<th>Paper
+					<tr><th>before
+					<td><input type="text" name="before_P_R"size="3">
+					<td><input type="text" name="before_P_S"size="3">
+					<td><input type="text" name="before_P_P"size="3">
+					<tr><th>pattern
+					<td><input type="text" name="pattern_P_R" size="3">
+					<td><input type="text" name="pattern_P_S" size="3">
+					<td><input type="text" name="pattern_P_P" size="3">
+
+				</table>
+
+			</form>
+
+<!-- ----------------------------------------------------------------------------------------------------------------------------- -->
+
+			<form name="nextG" method="post" action="">
+
+				<table cellpadding=3 border=1 bordercolor="#FFFF00">Your next might be...
+
+					<tr><th>Guess<th>Rock<th>Scissor<th>Paper
+					<tr><th>HOW
+					<td><input type="text" name="guess_R"size="3">
+					<td><input type="text" name="guess_S"size="3">
+					<td><input type="text" name="guess_P"size="3">
+
+				</table>
+
+			</form>
+
+<!-- ----------------------------------------------------------------------------------------------------------------------------- -->
+
+	</body>
+
+</html>
